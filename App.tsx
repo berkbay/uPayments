@@ -1,12 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import MainStackNavigation from "./src/navigations/MainStackNavigator";
+import {Provider} from "react-redux";
+import {applyMiddleware, createStore} from "redux";
+import thunk from "redux-thunk";
+import rootReducer from "./src/store";
+
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <Provider store={store}>
+        <MainStackNavigation/>
+      </Provider>
   );
 }
 
