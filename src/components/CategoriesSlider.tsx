@@ -19,10 +19,10 @@ const CategoriesSlider = (props:any) => {
     return (
         <View style={{flexDirection:'row'}}>
             <TouchableOpacity
-                onPress={() => setUpdateCategories('')}
-                style={[styles.categoriesButton, {backgroundColor: props.color == '' ? '#fff': '#000000'}]}
+                onPress={() => setUpdateCategories('all')}
+                style={[styles.categoriesButton, {backgroundColor: props.color == 'all' ? '#fff': '#000000'}]}
             >
-                <Text style={[styles.categoriesText, {color: props.color == '' ? '#000000': '#fff'}]}>All</Text>
+                <Text style={[styles.categoriesText, {color: props.color == 'all' ? '#000000': '#fff'}]}>All</Text>
             </TouchableOpacity>
             {data?.map((item:any) => (
                 <TouchableOpacity

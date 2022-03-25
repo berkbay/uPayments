@@ -21,8 +21,12 @@ const MainStackNavigation: FC = ({navigation}:any) => {
                 headerShown: true,
             }}>
                 <Stack.Screen name="HomeScreen" component={HomeScreen}/>
-                <Stack.Screen name="DetailScreen" component={DetailScreen}/>
-                <Stack.Screen name="ProductScreen" component={ProductScreen}/>
+                <Stack.Screen name="DetailScreen" component={DetailScreen} options={{
+                    headerBackTitleVisible: false
+                }}/>
+                <Stack.Screen name="ProductScreen" component={ProductScreen} options={{
+                    headerBackTitleVisible: false
+                }}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
