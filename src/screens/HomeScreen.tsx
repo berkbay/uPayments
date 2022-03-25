@@ -17,7 +17,7 @@ import CategoriesSlider from "../components/CategoriesSlider";
 
 const HomeScreen: FC = ({navigation}: any) => {
 
-    const [categories, setCategories] = useState('all')
+    const [categories, setCategories] = useState('')
     console.log(categories)
 
     const {data, loading, error} = useSelector((state:AppState) => state?.products)
@@ -29,7 +29,7 @@ const HomeScreen: FC = ({navigation}: any) => {
     const renderItem = ({item}:any) => {
         return(
             <View style={styles.productContainer}>
-                { categories == 'all' ?
+                { categories == '' ?
                     <View>
                         <View style={{justifyContent:'center', alignSelf:'center', height:120, width:100}}>
                             <Image source={{uri: item.avatar}} style={{height:100, width:100, backgroundColor:'#fff'}} resizeMode={'stretch'}  />
@@ -72,7 +72,7 @@ const HomeScreen: FC = ({navigation}: any) => {
 
     return(
         <SafeAreaView style={styles.container}>
-            <CategoriesSlider updateCategories={setCategories} color={categories}/>
+            <CategoriesSlider showAll={true} updateCategories={setCategories} color={categories}/>
             <View style={styles.productView}>
                 <FlatList
                     numColumns={2}
@@ -82,6 +82,9 @@ const HomeScreen: FC = ({navigation}: any) => {
                     extraData={categories}
                 />
             </View>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProductScreen')}>
+                <FontAwesome name="plus" size={40} color="black" />
+            </TouchableOpacity>
         </SafeAreaView>
     );
 }
@@ -105,7 +108,11 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
     },
     button: {
+        right: 24,
+        bottom: 23,
         zIndex: 10,
-        x: 10,
+        position:'absolute',
+        borderRadius: 20,
+        backgroundColor:'#FFF'
     }
 })

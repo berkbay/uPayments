@@ -10,7 +10,7 @@ const CategoriesSlider = (props:any) => {
     const dispatch = useDispatch()
 
     const setUpdateCategories = props.updateCategories
-    console.log(props.color)
+    const showAll= props.showAll
 
     useEffect(() => {
         dispatch(getCategories())
@@ -18,12 +18,15 @@ const CategoriesSlider = (props:any) => {
 
     return (
         <View style={{flexDirection:'row'}}>
-            <TouchableOpacity
-                onPress={() => setUpdateCategories('all')}
-                style={[styles.categoriesButton, {backgroundColor: props.color == 'all' ? '#fff': '#000000'}]}
-            >
-                <Text style={[styles.categoriesText, {color: props.color == 'all' ? '#000000': '#fff'}]}>All</Text>
-            </TouchableOpacity>
+            { showAll == true ?
+                <TouchableOpacity
+                    onPress={() => setUpdateCategories('')}
+                    style={[styles.categoriesButton, {backgroundColor: props.color == '' ? '#fff': '#000000'}]}
+                >
+                    <Text style={[styles.categoriesText, {color: props.color == '' ? '#000000': '#fff'}]}>All</Text>
+                </TouchableOpacity>
+                : null
+            }
             {data?.map((item:any) => (
                 <TouchableOpacity
                     onPress={() => setUpdateCategories(item.name)}
