@@ -1,5 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import MainStackNavigation from "./src/navigations/MainStackNavigator";
 import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
@@ -15,12 +13,3 @@ export default function App() {
       </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

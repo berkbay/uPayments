@@ -1,22 +1,22 @@
-import React, {FC, useEffect} from "react";
-import {Text, View,SafeAreaView, StyleSheet, FlatList, Image, TouchableOpacity} from "react-native";
+import React, {FC, useEffect, useState} from "react";
+import {Text, View, SafeAreaView, StyleSheet, FlatList, Image, TouchableOpacity, ScrollView} from "react-native";
 import {getProduct} from "../store/actions/productAction";
 import {useSelector, useDispatch} from "react-redux";
 
 import { FontAwesome } from '@expo/vector-icons';
 import {AppState} from "../store";
+import CategoriesSlider from "../components/CategoriesSlider";
 
 const HomeScreen: FC = ({navigation}: any) => {
-    // const CATEGORIES = useSelector((state) => state?.categories)
-    // console.log(CATEGORIES)
+
+    const [categories, setCategories] = useState('')
+    console.log(categories)
+
     const {data, loading, error} = useSelector((state:AppState) => state?.products)
     const dispatch = useDispatch()
     useEffect(()=>{
-        // dispatch(getCategories())
         dispatch(getProduct())
     },[])
-
-    console.log(data)
 
     const renderItem = ({item}:any) => {
         return(
@@ -41,16 +41,7 @@ const HomeScreen: FC = ({navigation}: any) => {
 
     return(
         <SafeAreaView style={styles.container}>
-            {/*<View style={{flexDirection:'row'}}>*/}
-            {/*    <TouchableOpacity style={{marginHorizontal:10,marginVertical: 10, borderRadius:5, backgroundColor:'#000000'}}>*/}
-            {/*        <Text style={{color:'#fff', padding: 10}}>All</Text>*/}
-            {/*    </TouchableOpacity>*/}
-            {/*    {CATEGORIES?.map((item:any) => (*/}
-            {/*        <TouchableOpacity style={{marginHorizontal:10,marginVertical: 10, borderRadius:5, backgroundColor:'#000000'}}>*/}
-            {/*            <Text style={{color:'#fff', padding: 10}} key={item?.id}>{item.name}</Text>*/}
-            {/*        </TouchableOpacity>*/}
-            {/*    ))}*/}
-            {/*</View>*/}
+            <CategoriesSlider updateCategories={setCategories} color={categories}/>
             <View style={styles.productView}>
                 <FlatList
                     numColumns={2}

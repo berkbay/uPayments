@@ -1,4 +1,4 @@
-import {Product, ProductAction, ProductState} from "../../types/product";
+import { ProductAction, ProductState} from "../../types/product";
 
 const defaultState: ProductState = {
     data:[],
@@ -13,8 +13,15 @@ export const productReducer = (state: ProductState = defaultState , action: Prod
         case 'GET_PRODUCT_SUCCESS':
             return{...state, data: action.payload,loading: false}
         case 'GET_PRODUCT_ERROR':
-            return {...state, loading: false, error: "Error fetching categories"}
+            return {...state, loading: false, error: "Error fetching products"}
+        case "ADD_PRODUCT_START":
+            return {...state, loading: true, error: ""}
+        case "ADD_PRODUCT_SUCCESS":
+            return {...state, loading: false, data: [action.payload, ...state.data]}
+        case "ADD_PRODUCT_ERROR":
+            return {...state, loading: false, error: "Error adding products" }
+        default:
+            return state
     }
-    return state
 }
 
