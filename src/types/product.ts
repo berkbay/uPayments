@@ -4,7 +4,7 @@ export interface Product {
     createdAt: Date,
     name: string,
     avatar: string,
-    id: number,
+    id: any,
     description: string,
     rating: {
         rate: number,
@@ -21,15 +21,9 @@ export interface ProductState {
 }
 
 export interface ProductForm {
-    createdAt?: Date,
     name: string,
     avatar: string,
-    id: number,
     description: string,
-    rating?: {
-        rate?: number,
-        count?: number
-    },
     price: number,
     category: string,
     personEmail: string
@@ -61,13 +55,29 @@ interface ADD_PRODUCT_ERROR {
     type: "ADD_PRODUCT_ERROR"
 }
 
+interface DELETE_PRODUCT_START {
+    type: "DELETE_PRODUCT_START"
+}
+
+interface DELETE_PRODUCT_SUCCESS {
+    type: "DELETE_PRODUCT_SUCCESS"
+    payload: number;
+}
+
+interface DELETE_PRODUCT_ERROR {
+    type: "DELETE_PRODUCT_ERROR"
+}
+
 export type ProductAction =
     GET_PRODUCT_START |
     GET_PRODUCT_SUCCESS |
     GET_PRODUCT_ERROR |
     ADD_PRODUCT_START |
     ADD_PRODUCT_SUCCESS |
-    ADD_PRODUCT_ERROR ;
+    ADD_PRODUCT_ERROR |
+    DELETE_PRODUCT_START |
+    DELETE_PRODUCT_SUCCESS |
+    DELETE_PRODUCT_ERROR;
 
 export type ProductDispatch = ThunkDispatch <ProductState, void, ProductAction>;
 

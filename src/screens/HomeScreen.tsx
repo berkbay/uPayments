@@ -18,7 +18,6 @@ import CategoriesSlider from "../components/CategoriesSlider";
 const HomeScreen: FC = ({navigation}: any) => {
 
     const [categories, setCategories] = useState('')
-    console.log(categories)
 
     const {data, loading, error} = useSelector((state:AppState) => state?.products)
     const dispatch = useDispatch()
@@ -31,13 +30,13 @@ const HomeScreen: FC = ({navigation}: any) => {
             <View style={styles.productContainer}>
                 { categories == '' ?
                     <View>
-                        <View style={{justifyContent:'center', alignSelf:'center', height:120, width:100}}>
-                            <Image source={{uri: item.avatar}} style={{height:100, width:100, backgroundColor:'#fff'}} resizeMode={'stretch'}  />
+                        <View style={styles.imageBorder}>
+                            <Image source={{uri: item.avatar}} style={styles.image} resizeMode={'stretch'}  />
                         </View>
-                        <View style={{ backgroundColor: '#000000', borderRadius: 10, paddingHorizontal: 5, flexDirection:'row', justifyContent:'space-between'}}>
+                        <View style={styles.informationBorder}>
                             <View>
-                                <Text style={{color: '#fff', fontWeight: '700', fontSize:12}}>{item.name}</Text>
-                                <Text style={{color: '#fff',fontWeight: '700',fontSize:12}}>{item.price} $</Text>
+                                <Text style={styles.text}>{item.name}</Text>
+                                <Text style={styles.text}>{item.price} $</Text>
                             </View>
                             <View style={{alignSelf:'center'}}>
                                 <TouchableOpacity onPress={() => (navigation.navigate('DetailScreen', {item: item}))}>
@@ -45,15 +44,17 @@ const HomeScreen: FC = ({navigation}: any) => {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                    </View> : categories == item.category ?
+                    </View>
+                    :
+                    categories == item.category ?
                         <View>
-                            <View style={{justifyContent:'center', alignSelf:'center', height:120, width:100}}>
-                                <Image source={{uri: item.avatar}} style={{height:100, width:100, backgroundColor:'#fff'}} resizeMode={'stretch'}  />
+                            <View style={styles.imageBorder}>
+                                <Image source={{uri: item.avatar}} style={styles.image} resizeMode={'stretch'}  />
                             </View>
-                            <View style={{ backgroundColor: '#000000', borderRadius: 10, paddingHorizontal: 5, flexDirection:'row', justifyContent:'space-between'}}>
+                            <View style={styles.informationBorder}>
                                 <View>
-                                    <Text style={{color: '#fff', fontWeight: '700', fontSize:12}}>{item.name}</Text>
-                                    <Text style={{color: '#fff',fontWeight: '700',fontSize:12}}>{item.price} $</Text>
+                                    <Text style={styles.text}>{item.name}</Text>
+                                    <Text style={styles.text}>{item.price} $</Text>
                                 </View>
                                 <View style={{alignSelf:'center'}}>
                                     <TouchableOpacity onPress={() => (navigation.navigate('DetailScreen', {item: item}))}>
@@ -72,7 +73,12 @@ const HomeScreen: FC = ({navigation}: any) => {
 
     return(
         <SafeAreaView style={styles.container}>
-            <CategoriesSlider showAll={true} updateCategories={setCategories} color={categories}/>
+            <CategoriesSlider
+                showAll={true}
+                changeCategories={setCategories}
+                updateCategories={setCategories}
+                color={categories}
+            />
             <View style={styles.productView}>
                 <FlatList
                     numColumns={2}
@@ -80,6 +86,7 @@ const HomeScreen: FC = ({navigation}: any) => {
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
                     extraData={categories}
+                    showsVerticalScrollIndicator={false}
                 />
             </View>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProductScreen')}>
@@ -97,14 +104,12 @@ const styles = StyleSheet.create({
     },
     productView: {
         flex: 1,
-        marginHorizontal: 10,
     },
     productContainer: {
         backgroundColor:'#FFF',
         flex:1,
         borderRadius: 10,
-        width: '50%',
-        marginVertical: 10,
+        width: 200,
         marginHorizontal: 5,
     },
     button: {
@@ -114,5 +119,28 @@ const styles = StyleSheet.create({
         position:'absolute',
         borderRadius: 20,
         backgroundColor:'#FFF'
+    },
+    text: {
+        color: '#fff',
+        fontWeight: '700',
+        fontSize:12
+    },
+    imageBorder: {
+        justifyContent:'center',
+        alignSelf:'center',
+        height:120,
+        width:100
+    },
+    image:{
+        height:100,
+        width:100,
+        backgroundColor:'#fff'
+    },
+    informationBorder: {
+        backgroundColor: '#000000',
+        borderRadius: 10,
+        paddingHorizontal: 5,
+        flexDirection:'row',
+        justifyContent:'space-between'
     }
 })

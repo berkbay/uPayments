@@ -20,6 +20,13 @@ export const productReducer = (state: ProductState = defaultState , action: Prod
             return {...state, loading: false, data: [action.payload, ...state.data]}
         case "ADD_PRODUCT_ERROR":
             return {...state, loading: false, error: "Error adding products" }
+        case "DELETE_PRODUCT_START":
+            return {...state, loading: true, error: ""}
+        case "DELETE_PRODUCT_SUCCESS":
+            return {...state, loading: false, data: state.data.filter((product) => product.id !== action.payload)}
+        case "DELETE_PRODUCT_ERROR":
+            return {...state, loading: false, error: "Error deleting products" }
+
         default:
             return state
     }

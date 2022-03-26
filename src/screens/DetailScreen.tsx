@@ -1,8 +1,30 @@
-import React, {FC} from "react";
-import {Image, Text, View} from "react-native";
+import React, {FC, useLayoutEffect} from "react";
+import {Image, Text, TouchableOpacity, View} from "react-native";
+import {useDispatch} from "react-redux";
+import {deleteProducts} from "../store/actions/productAction";
 
 const DetailScreen: FC = (props) => {
     const item = props.route.params.item
+    const navigation =props.navigation
+
+    const dispatch = useDispatch()
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity onPress={() => {
+                    dispatch(deleteProducts(deleteId))
+                    navigation.navigate('HomeScreen')
+                }}>
+                    <Text>DELETE</Text>
+                </TouchableOpacity>
+            ),
+            headerTitle: item.name
+        });
+    }, [navigation])
+
+    const deleteId = item.id
+
     return(
         <View style={{flex:1}}>
             <View style={{flex:1}}>
